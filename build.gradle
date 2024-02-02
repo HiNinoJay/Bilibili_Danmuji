@@ -49,6 +49,9 @@ dependencies {
 	//=================================================Brotli=================================================
 	// https://mvnrepository.com/artifact/cn.hutool/hutool-cache
 	implementation group: 'cn.hutool', name: 'hutool-cache', version: '5.8.22'
+	// https://mvnrepository.com/artifact/cn.codingguide/chatgpt4j
+	implementation group: 'cn.codingguide', name: 'chatgpt4j', version: '1.0.1'
+
 	implementation fileTree(dir: 'lib', includes: ['*.jar'])
 }
 configurations {

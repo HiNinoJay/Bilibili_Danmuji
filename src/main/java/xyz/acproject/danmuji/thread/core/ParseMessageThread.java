@@ -1,5 +1,6 @@
 package xyz.acproject.danmuji.thread.core;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +18,7 @@ import xyz.acproject.danmuji.entity.Welcome.WelcomeGuard;
 import xyz.acproject.danmuji.entity.Welcome.WelcomeVip;
 import xyz.acproject.danmuji.entity.auto_reply.AutoReply;
 import xyz.acproject.danmuji.entity.base.WsPackage;
+import xyz.acproject.danmuji.entity.chatgpt.ChatResVo;
 import xyz.acproject.danmuji.entity.danmu_data.*;
 import xyz.acproject.danmuji.entity.high_level_danmu.Hbarrage;
 import xyz.acproject.danmuji.entity.room_data.LotteryInfoWeb;
@@ -25,6 +27,7 @@ import xyz.acproject.danmuji.entity.superchat.SuperChat;
 import xyz.acproject.danmuji.enums.ListPeopleShieldStatus;
 import xyz.acproject.danmuji.enums.ShieldGift;
 import xyz.acproject.danmuji.http.HttpUserData;
+import xyz.acproject.danmuji.service.ChatGPTService;
 import xyz.acproject.danmuji.service.SetService;
 import xyz.acproject.danmuji.tools.CurrencyTools;
 import xyz.acproject.danmuji.tools.ParseIndentityTools;
@@ -59,6 +62,8 @@ public class ParseMessageThread extends Thread {
     private CenterSetConf centerSetConf;
 
 
+
+    private ChatGPTService chatGPTService = SpringUtils.getBean(ChatGPTService.class);
     @Override
     public void run() {
         // TODO 自动生成的方法存根
@@ -210,6 +215,9 @@ public class ParseMessageThread extends Thread {
                                     stringBuilder.append(barrage.getUname());
                                     stringBuilder.append(" 它说:");
                                     stringBuilder.append(barrage.getMsg());
+                                    // todo 加入chatGPT
+                                    ChatResVo chatResVo = chatGPTService.chatCompletions(barrage.getMsg());
+                                    System.out.println(JSON.toJSONString(chatResVo));
                                     //控制台打印
                                     if (getCenterSetConf().is_cmd()) {
                                         System.out.println(stringBuilder.toString());
