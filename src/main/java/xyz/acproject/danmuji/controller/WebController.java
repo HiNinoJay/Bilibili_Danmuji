@@ -161,9 +161,15 @@ public class WebController {
     }
 
 
+    /**
+     * 手动输入cookie
+     * @param cookie
+     * @param req
+     * @return
+     */
     @ResponseBody
     @PostMapping(value = "/customCookie")
-    public Response<?> customCookie(String cookie,HttpServletRequest req){
+    public Response<?> customCookie(String cookie, HttpServletRequest req){
         boolean flag = CurrencyTools.parseCookie(cookie);
         if(flag){
             danmujiInitService.init();

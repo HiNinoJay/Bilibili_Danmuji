@@ -19,7 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class User implements Serializable{
 	/**
-	 * 
+	 * B站登录成功后返回结果
 	 */
 	private static final long serialVersionUID = 4638128918041411710L;
 	private Long uid;

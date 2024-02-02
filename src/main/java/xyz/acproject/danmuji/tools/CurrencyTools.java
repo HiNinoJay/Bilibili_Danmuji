@@ -373,7 +373,13 @@ public class CurrencyTools {
         }
     }
 
-    //最低限度cookie
+    /**
+     * 获取最低限度cookie
+     * 1.去除空格
+     * 2.按照";"划分
+     * 3.循环拆出":" key value
+     * 4.存入UserCookie、PublicDataConf
+     */
     public static boolean parseCookie(String init_cookie) {
         String key = null;
         String value = null;

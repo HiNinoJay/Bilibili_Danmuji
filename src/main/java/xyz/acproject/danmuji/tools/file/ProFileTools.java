@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class ProFileTools {
-	private static final String STORE_DIR;
+	private static final String STORE_DIR; // 存入 jar包的绝对路径
 	static {
 		FileTools fileTools = new FileTools();
 		String tmp;
