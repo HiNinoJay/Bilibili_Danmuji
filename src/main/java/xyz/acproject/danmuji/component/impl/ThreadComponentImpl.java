@@ -76,10 +76,11 @@ public class ThreadComponentImpl implements ThreadComponent {
 	 *
 	 */
 	@Override
-	public boolean startParseMessageThread(
-			CenterSetConf centerSetConf) {
+	public boolean startParseMessageThread(CenterSetConf centerSetConf) {
+
 		// TODO 自动生成的方法存根
 		HashSet<ThankGiftRuleSet> thankGiftRuleSets = new HashSet<>();
+
 		// thankGiftRuleSets
 		for (Iterator<ThankGiftRuleSet> iterator = centerSetConf.getThank_gift().getThankGiftRuleSets()
 				.iterator(); iterator.hasNext();) {
@@ -88,11 +89,13 @@ public class ThreadComponentImpl implements ThreadComponent {
 				thankGiftRuleSets.add(thankGiftRuleSet);
 			}
 		}
+
 		if (PublicDataConf.parseMessageThread != null && !PublicDataConf.parseMessageThread.getState().toString().equals("TERMINATED")) {
 			PublicDataConf.parseMessageThread.setCenterSetConf(centerSetConf);
 			PublicDataConf.parseMessageThread.setThankGiftRuleSets(thankGiftRuleSets);
 			return false;
 		}
+
 		PublicDataConf.parseMessageThread = new ParseMessageThread();
 		PublicDataConf.parseMessageThread.FLAG = false;
 		PublicDataConf.parseMessageThread.start();

@@ -20,8 +20,7 @@ public interface ThreadComponent {
 	void closeUser(boolean close);
 
 	// 开启处理弹幕包线程 core
-	boolean startParseMessageThread(
-			CenterSetConf centerSetConf);
+	boolean startParseMessageThread(CenterSetConf centerSetConf);
 
 	// 开启心跳线程 core
 	boolean startHeartByteThread();
@@ -66,15 +65,16 @@ public interface ThreadComponent {
 	void startParseThankWelcomeThread(ThankWelcomeSetConf thankWelcomeSetConf);
 
 	// 设置处理弹幕包线程
-	void setParseMessageThread(
-			CenterSetConf centerSetConf);
+	void setParseMessageThread(CenterSetConf centerSetConf);
 
 	// 设置公告线程 need login
 //	void setAdvertThread(CenterSetConf centerSetConf);
 	void setAdvertThread(AdvertSetConf advertThread);
+
 	// 设置自动回复线程 need login
 //	void setAutoReplyThread(CenterSetConf centerSetConf);
 	void setAutoReplyThread(AutoReplySetConf autoReplySetConf);
+
 	// 关闭处理弹幕包线程 core
 	void closeParseMessageThread();
 

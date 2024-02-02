@@ -180,13 +180,16 @@ public class SetServiceImpl implements SetService {
      * 保存配置并执行
      */
     public void holdSet(CenterSetConf centerSetConf) {
+
         synchronized (centerSetConf) {
+
             SchedulingRunnableUtil task = new SchedulingRunnableUtil("dosignTask", "dosign");
             SchedulingRunnableUtil dakatask = new SchedulingRunnableUtil("dosignTask", "clockin");
             SchedulingRunnableUtil autoSendGiftTask = new SchedulingRunnableUtil("dosignTask", "autosendgift");
-            //每日签到
+
+            // 每日签到
             if (PublicDataConf.centerSetConf.is_dosign()) {
-                //判断签到
+                // 判断签到
                 boolean isSign = CurrencyTools.signNow();
                 if (isSign) {
                     changeSet(PublicDataConf.centerSetConf);
@@ -202,7 +205,8 @@ public class SetServiceImpl implements SetService {
                     LOGGER.error("清理定时任务错误：" + e);
                 }
             }
-            //每日打卡
+
+            // 每日打卡
             if (centerSetConf.getClock_in().is_open()) {
                 if (!taskRegisterComponent.hasTask(dakatask)) {
                     taskRegisterComponent.addTask(dakatask, CurrencyTools.dateStringToCron(centerSetConf.getClock_in().getTime()));
@@ -215,7 +219,8 @@ public class SetServiceImpl implements SetService {
                     LOGGER.error("清理定时任务错误：" + e);
                 }
             }
-            //每日定时自动送礼
+
+            // 每日定时自动送礼
             if (centerSetConf.getAuto_gift().is_open()) {
                 if (!taskRegisterComponent.hasTask(autoSendGiftTask)) {
                     taskRegisterComponent.addTask(autoSendGiftTask, CurrencyTools.dateStringToCron(centerSetConf.getAuto_gift().getTime()));
@@ -229,23 +234,27 @@ public class SetServiceImpl implements SetService {
                 }
             }
 
-            //need roomid set
+            // need roomid set
             if (PublicDataConf.ROOMID == null || PublicDataConf.ROOMID <= 0) {
                 return;
             }
+
             if (PublicDataConf.webSocketProxy == null) {
                 return;
             }
+
             if (PublicDataConf.webSocketProxy != null && !PublicDataConf.webSocketProxy.isOpen()) return;
+
             // parsemessagethread start
-            threadComponent.startParseMessageThread(
-                    centerSetConf);
+            threadComponent.startParseMessageThread(centerSetConf);
+
             // logthread
             if (centerSetConf.is_log()) {
                 threadComponent.startLogThread();
             } else {
                 threadComponent.closeLogThread();
             }
+
             // need login
             if (StringUtils.isNotBlank(PublicDataConf.USERCOOKIE)) {
                 // advertthread
